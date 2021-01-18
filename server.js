@@ -8,5 +8,5 @@ const mainRoutes = require('./routes/main')
 const app = express()
 app.use(mainRoutes)
 
-// Server launch
-app.listen(port, _ => console.log(`Servidor iniciado en http://localhost:${port}/`))
+// Server Running
+app.listen(port, _ => console.log(`Server Running at: http://localhost:${port}/`))
