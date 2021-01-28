@@ -1,22 +1,20 @@
-const { root } = require('../config')
 const express = require('express')
 const bodyParser = require('body-parser')
-const path = require('path')
 
 // Router Creation
 const router = express.Router()
 
 // body-parser
-router.use(bodyParser.urlencoded({extended: true}))
+router.use(bodyParser.urlencoded({ extended: true }))
 router.use(bodyParser.json())
 
 // Routes
 router.get('/', (req,res) => {
-    res.sendFile(path.join(root + '/views/index.html'))
+    res.render('index', { layout: 'main', title: 'Hello World', text: 'Hola Mundo' })
 })
 
 router.get("*", (req, res) => {
-    res.sendFile(path.join(root + '/views/404.html'))
+    res.render('404', {title: 'Oh no! a 404 :('})
 })
 
 module.exports = router
