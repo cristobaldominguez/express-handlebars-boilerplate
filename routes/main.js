@@ -9,7 +9,7 @@ router.use(bodyParser.urlencoded({ extended: true }))
 router.use(bodyParser.json())
 
 // Routes
-router.get('/', (req,res) => {
+router.get('/', (req, res) => {
     res.render('index', { layout: 'main', title: 'Hello World', text: 'Hola Mundo' })
 })
 
