@@ -13,7 +13,7 @@ router.get('/', (req, res) => {
 })
 
 router.get("*", (req, res) => {
-    res.render('404', {title: 'Oh no! a 404 :('})
+    res.render('404', { title: 'Oh no! a 404 :(' })
 })
 
 module.exports = router
