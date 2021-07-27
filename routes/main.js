@@ -1,12 +1,11 @@
 const express = require('express')
-const bodyParser = require('body-parser')
 
 // Router Creation
 const router = express.Router()
 
-// body-parser
-router.use(bodyParser.urlencoded({ extended: true }))
-router.use(bodyParser.json())
+// body-parser -> From Express 4.16+
+router.use(express.urlencoded())
+router.use(express.json())
 
 // Routes
 router.get('/', (req, res) => {
