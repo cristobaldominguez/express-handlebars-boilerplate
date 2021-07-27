@@ -1,10 +1,10 @@
-const express = require('express')
+import express from 'express'
 
 // Router Creation
 const router = express.Router()
 
 // body-parser -> From Express 4.16+
-router.use(express.urlencoded())
+router.use(express.urlencoded({ extended: true }))
 router.use(express.json())
 
 // Routes
@@ -16,4 +16,4 @@ router.get("*", (req, res) => {
     res.render('404', { title: 'Oh no! a 404 :(' })
 })
 
-module.exports = router
+export default router

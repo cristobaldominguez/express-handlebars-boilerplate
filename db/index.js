@@ -1,6 +1,4 @@
-const { Pool } = require('pg')
-const { db: pg_connection } = require('../config')
+import { Pool } from 'pg'
+import { db as pg_connection } from '../config'
 
 const pool = new Pool(pg_connection)
-
-module.exports = {}
