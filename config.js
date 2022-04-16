@@ -1,5 +1,8 @@
+import { dirname } from 'path';
+import { fileURLToPath } from 'url';
+
 const port = process.env.PORT || 3000
-const root = new URL('../src', import.meta.url)
+const root = dirname(fileURLToPath(import.meta.url))
 const db = {
     host: 'localhost',
     user: 'pg-username',
