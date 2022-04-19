@@ -23,7 +23,7 @@ app.engine('.hbs', handlebars({ extname: '.hbs' }))
 app.use(mainRoutes)
 
 // 404 Page
-router.get("*", (req, res) => {
+app.get("*", (req, res) => {
     res.render('404', { title: 'Oh no! a 404 :(' })
 })
 
