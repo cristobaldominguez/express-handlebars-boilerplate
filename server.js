@@ -7,11 +7,25 @@ import mainRoutes from './routes/main.js'
 
 // Server
 const app = express()
-app.use(mainRoutes)
+
+// body-parser -> From Express 4.16+
+app.use(express.urlencoded({ extended: true }))
+app.use(express.json())
+
+// Public Folder
+app.use(express.static('public'))
 
 // Handlebars
 app.set('view engine', '.hbs')
 app.engine('.hbs', handlebars({ extname: '.hbs' }))
+
+// App Routes
+app.use(mainRoutes)
+
+// 404 Page
+router.get("*", (req, res) => {
+    res.render('404', { title: 'Oh no! a 404 :(' })
+})
 
 // Server Running
 app.listen(port, _ => console.log(`Server Running at: http://localhost:${port}/`))
