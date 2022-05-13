@@ -3,9 +3,9 @@ import express from 'express'
 // Router Creation
 const router = express.Router()
 
+import { home_main } from '../controllers/main_controller.js'
+
 // Routes
-router.get('/', (req, res) => {
-    res.render('index', { layout: 'main', title: 'Hello World', text: 'Hola Mundo' })
-})
+router.get('/', home_main)
 
 export default router
