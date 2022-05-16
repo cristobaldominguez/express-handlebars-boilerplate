@@ -1,10 +1,9 @@
 import dotenv from 'dotenv'
+import { dirname } from 'path'
+import { fileURLToPath } from 'url'
 
 // dotEnv Config
 dotenv.config()
-
-import { dirname } from 'path'
-import { fileURLToPath } from 'url'
 
 const env_db_config = JSON.parse(process.env.DB_CONFIG)
 
