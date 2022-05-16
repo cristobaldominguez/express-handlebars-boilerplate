@@ -5,6 +5,7 @@ import { engine } from 'express-handlebars'
 
 // Routes
 import mainRoutes from './routes/main.js'
+import authRoutes from './routes/auth.js'
 
 // dotEnv Config
 dotenv.config()
@@ -26,6 +27,7 @@ app.set('views', './views')
 
 // App Routes
 app.use(mainRoutes)
+app.use('/auth', authRoutes)
 
 // 404 Page
 app.get("*", (req, res) => {
