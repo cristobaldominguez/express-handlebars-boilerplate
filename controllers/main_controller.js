@@ -1,8 +1,8 @@
 // Methods
 // GET /
-function home_main_controller(_, res) {
+function home_main_controller(req, res) {
     if (req.accepts('text/html')) {
-        res.render('index', { title: 'Hello World', text: 'Hola Mundo' })
+        return res.render('index', { title: 'Hello World', text: 'Hola Mundo' })
     }
 
     res.json({ message: 'Hello World' })
