@@ -1,3 +1,4 @@
+// Methods
 // GET /example/
 function index_example_controller(req, res) {
     if (req.accepts('text/html')) {

@@ -32,7 +32,7 @@ app.use('/auth', authRoutes)
 app.use('/example', exampleRoutes)
 
 // 404 Page
-app.get("*", (req, res) => {
+app.get("*", (_, res) => {
     res.render('404', { title: 'Oh no! a 404 :(' })
 })
 

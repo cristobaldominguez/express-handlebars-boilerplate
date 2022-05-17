@@ -1,6 +1,11 @@
+// Methods
 // GET /
 function home_main_controller(_, res) {
-    res.render('index', { title: 'Hello World', text: 'Hola Mundo' })
+    if (req.accepts('text/html')) {
+        res.render('index', { title: 'Hello World', text: 'Hola Mundo' })
+    }
+
+    res.json({ message: 'Hello World' })
 }
 
 // GET /unauthorized
