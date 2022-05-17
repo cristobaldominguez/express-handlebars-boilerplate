@@ -4,6 +4,8 @@ import jwt from 'jsonwebtoken'
 // Import Queries
 import { create_user, get_user_by } from '../db/queries/users.js'
 
+const accessTokenSecret = process.env.SECRET_KEY
+
 // Methods
 // POST /auth/signup
 async function signup_auth(req, res) {
@@ -24,7 +26,7 @@ async function signup_auth(req, res) {
 
     try {
         const saved_user = await create_user(user)
-        const token = jwt.sign(await saved_user, process.env.SECRET_KEY)
+        const token = jwt.sign(await saved_user, accessTokenSecret)
         res.status(200).send(token)
 
     } catch (error) {
@@ -42,7 +44,7 @@ async function login_auth(req, res) {
         const validPassword = await bcrypt.compare(password, user.password)
 
         if (validPassword) {
-            const token = jwt.sign(user, process.env.SECRET_KEY)
+            const token = jwt.sign(user, accessTokenSecret)
             res.status(200).send(token)
 
         } else {
@@ -54,7 +56,26 @@ async function login_auth(req, res) {
     }
 }
 
+function authenticateJWT(req, res, next) {
+    const authHeader = req.headers.authorization
+
+    if (authHeader) {
+        const token = authHeader.split(' ')[1]
+
+        jwt.verify(token, accessTokenSecret, (err, user) => {
+            if (err) return res.redirect('/unauthorized')
+
+            req.user = user
+            next()
+        })
+
+    } else {
+        res.redirect('/unauthorized')
+    }
+}
+
 export {
     signup_auth,
-    login_auth
+    login_auth,
+    authenticateJWT
 }
