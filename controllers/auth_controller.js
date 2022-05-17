@@ -56,6 +56,7 @@ async function login_auth(req, res) {
     }
 }
 
+// Middleware
 function authenticateJWT(req, res, next) {
     const authHeader = req.headers.authorization
 
