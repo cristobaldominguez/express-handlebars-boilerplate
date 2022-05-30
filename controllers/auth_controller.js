@@ -9,7 +9,8 @@ const accessTokenSecret = process.env.SECRET_KEY
 // Methods
 // POST /auth/signup
 async function signup_auth(req, res) {
-    const { email, password } = req.body
+    const email = req.sanitize(req.body.email)
+    const { password } = req.body
 
     if (!(email && password)) {
         return res.status(400).send({ error: "Data not formatted properly" })
@@ -36,7 +37,8 @@ async function signup_auth(req, res) {
 
 // POST /auth/login
 async function login_auth(req, res) {
-    const { email, password } = req.body
+    const email = req.sanitize(req.body.email)
+    const { password } = req.body
     const user = await get_user_by({ email })
 
     if (user) {
