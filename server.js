@@ -4,6 +4,9 @@ import express from 'express'
 import { engine } from 'express-handlebars'
 import expressSanitizer from 'express-sanitizer'
 
+// ErrorHandling
+import 'express-async-errors'
+
 // Routes
 import mainRoutes from './routes/main.js'
 import authRoutes from './routes/auth.js'
