@@ -18,6 +18,7 @@ const app = express()
 // body-parser -> From Express 4.16+
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
+app.use(express.text())
 
 // express-sanitizer middleware
 app.use(expressSanitizer())
