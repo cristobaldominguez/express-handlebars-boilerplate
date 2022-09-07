@@ -62,7 +62,7 @@ async function login_auth(req, res) {
 }
 
 // Middleware
-function authenticateJWT(req, res, next) {
+function authenticate_jwt(req, res, next) {
     const authHeader = req.headers.authorization
 
     if (authHeader) {
@@ -83,5 +83,5 @@ function authenticateJWT(req, res, next) {
 export {
     signup_auth,
     login_auth,
-    authenticateJWT
+    authenticate_jwt
 }
