@@ -12,6 +12,9 @@ import mainRoutes from './routes/main.js'
 import authRoutes from './routes/auth.js'
 import exampleRoutes from './routes/example.js'
 
+// Middlewares
+import errorMiddleware from './middlewares/error_middleware.js'
+
 // dotEnv Config
 dotenv.config()
 
@@ -43,6 +46,8 @@ app.use('/example', exampleRoutes)
 app.get("*", (_, res) => {
     res.render('404', { title: 'Oh no! a 404 :(' })
 })
+
+app.use(errorMiddleware)
 
 // Server Running
 app.listen(port, _ => console.log(`Server Running at: http://localhost:${port}/`))

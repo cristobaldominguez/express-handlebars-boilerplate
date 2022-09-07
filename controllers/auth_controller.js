@@ -4,6 +4,9 @@ import jwt from 'jsonwebtoken'
 // Import Queries
 import { create_user, get_user_by } from '../db/queries/users.js'
 
+// ErrorHandling
+import AuthError from '../errors/auth_error.js'
+
 const accessTokenSecret = process.env.SECRET_KEY
 
 // Methods
@@ -13,7 +16,7 @@ async function signup_auth(req, res) {
     const { password } = req.body
 
     if (!(email && password)) {
-        return res.status(400).send({ error: "Data not formatted properly" })
+        throw new AuthError({ message: 'Data not formatted properly' })
     }
 
     // creating a new user
@@ -22,7 +25,7 @@ async function signup_auth(req, res) {
     // generate salt to hash password
     const salt = await bcrypt.genSalt(10)
 
-    // now we set user password to hashed password
+    // set user password to hashed password
     user.password = await bcrypt.hash(user.password, salt)
 
     try {
@@ -31,7 +34,7 @@ async function signup_auth(req, res) {
         res.status(200).send(token)
 
     } catch (error) {
-        res.status(500).send({ error: '500 Internal Server Error', message: error })
+        throw new Error()
     }
 }
 
@@ -50,11 +53,11 @@ async function login_auth(req, res) {
             res.status(200).send(token)
 
         } else {
-            res.status(400).json({ error: "Invalid Password" })
+            throw new AuthError({ message: 'Invalid Password', status: 400 })
         }
 
     } else {
-        res.status(401).json({ error: "User does not exist" })
+        throw new AuthError({ message: 'User does not exist', status: 401 })
     }
 }
 
