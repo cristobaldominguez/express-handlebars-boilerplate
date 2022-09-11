@@ -5,6 +5,15 @@ import { fileURLToPath } from 'url'
 // dotEnv Config
 dotenv.config()
 
+const redirect = {
+    after: {
+        login: '/',
+        logout: '/',
+        signup: '/',
+    },
+    for_unauthorized: '/auth/login'
+}
+
 const env_db_config = JSON.parse(process.env.DB_CONFIG)
 
 const port = process.env.PORT || 3000
@@ -19,4 +28,4 @@ const db_default_options = {
 
 const db = { ...db_default_options, ...env_db_config }
 
-export { port, root, db }
+export { port, root, db, redirect }
