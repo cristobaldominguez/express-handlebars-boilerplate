@@ -31,7 +31,7 @@ async function signup_auth(req, res) {
     try {
         const saved_user = await create_user(user)
         const token = jwt.sign(await saved_user, accessTokenSecret)
-        res.status(200).send(token)
+        res.status(200).send({ token: token })
 
     } catch (error) {
         throw new Error()
