@@ -3,6 +3,7 @@ import { port } from './config.js'
 import express from 'express'
 import { engine } from 'express-handlebars'
 import expressSanitizer from 'express-sanitizer'
+import cookieParser from 'cookie-parser'
 
 // ErrorHandling
 import 'express-async-errors'
@@ -25,6 +26,7 @@ const app = express()
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 app.use(express.text())
+app.use(cookieParser())
 
 // express-sanitizer middleware
 app.use(expressSanitizer())
