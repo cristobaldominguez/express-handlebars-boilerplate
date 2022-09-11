@@ -44,9 +44,9 @@ app.use(mainRoutes)
 app.use('/auth', authRoutes)
 app.use('/example', exampleRoutes)
 
-// 404 Page
+// Redirect to 404 Page
 app.get("*", (_, res) => {
-    res.render('404', { title: 'Oh no! a 404 :(' })
+    res.redirect('/404')
 })
 
 app.use(errorMiddleware)
