@@ -13,6 +13,9 @@ import mainRoutes from './routes/main.js'
 import authRoutes from './routes/auth.js'
 import exampleRoutes from './routes/example.js'
 
+// Controllers
+import { authenticate, set_user } from './controllers/auth_controller.js'
+
 // Middlewares
 import errorMiddleware from './middlewares/error_middleware.js'
 
@@ -42,7 +45,7 @@ app.set('views', './views')
 // App Routes
 app.use(mainRoutes)
 app.use('/auth', authRoutes)
-app.use('/example', exampleRoutes)
+app.use('/examples', authenticate, set_user, exampleRoutes)
 
 // Redirect to 404 Page
 app.get("*", (_, res) => {

@@ -1,5 +1,5 @@
 // Methods
-// GET /example/
+// GET /examples/
 function get_index(req, res) {
   if (req.accepts('text/html')) {
     // for several options req.accepts(['json', 'text'])

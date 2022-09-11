@@ -8,7 +8,7 @@ import example_controller from '../controllers/example_controller.js'
 const router = express.Router()
 
 // Routes
-// GET /example/
 router.get( '/', authenticate, set_user, example_controller.get_index )
+// GET /examples/
 
 export default router
