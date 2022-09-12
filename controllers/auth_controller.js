@@ -17,12 +17,10 @@ function get_signup(_, res) {
 async function post_signup(req, res) {
   const token = await auth_services.post_signup(req, res)
 
-  if (typeof token.toJson === 'function') {
-    if (req.expects_html) {
-      return res.status(req.error.status).render('auth/signup', { error: req.error.toJson(), user: { email: req.body.email } })
-    } else {
-      throw token
-    }
+  if (typeof token.toJson === 'function' && req.expects_html) {
+    return res.status(req.error.status).render('auth/signup', { error: req.error.toJson(), user: { email: req.body.email } })
+  } else if (typeof token.toJson === 'function') {
+    throw token
   }
 
   if (req.expects_html) {
@@ -42,12 +40,10 @@ async function get_login(_, res) {
 async function post_login(req, res) {
   const token = await auth_services.post_login(req, res)
 
-  if (typeof token.toJson === 'function') {
-    if (req.expects_html) {
-      return res.status(req.error.status).render('auth/login', { error: req.error.toJson(), user: { email: req.body.email } })
-    } else {
-      throw token
-    }
+  if (typeof token.toJson === 'function' && req.expects_html) {
+    return res.status(req.error.status).render('auth/login', { error: req.error.toJson(), user: { email: req.body.email } })
+  } else if (typeof token.toJson === 'function') {
+    throw token
   }
 
   if (req.expects_html) {
