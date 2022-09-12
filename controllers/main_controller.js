@@ -1,7 +1,7 @@
 // Methods
 // GET /
 function get_home(req, res) {
-  if (req.accepts('text/html')) {
+  if (req.expects_html) {
     return res.render('home/index', { title: 'Hello World', text: 'Hola Mundo' })
   }
 
@@ -10,7 +10,7 @@ function get_home(req, res) {
 
 // GET /unauthorized
 function get_unauthorized(req, res) {
-  if (req.accepts('text/html')) {
+  if (req.expects_html) {
     return res.render('home/unauthorized', { title: 'Unauthorized (403)', text: 'Oh, no! No tienes acceso a esta sección' })
   }
 
@@ -19,7 +19,7 @@ function get_unauthorized(req, res) {
 
 // GET /404
 function get_404(req, res) {
-  if (req.accepts('text/html')) {
+  if (req.expects_html) {
     return res.render('home/404', { content: 'Oh no! a 404 :(' })
   }
 }

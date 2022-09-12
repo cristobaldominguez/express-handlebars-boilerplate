@@ -18,6 +18,7 @@ import { authenticate, set_user } from './controllers/auth_controller.js'
 
 // Middlewares
 import errorMiddleware from './middlewares/error_middleware.js'
+import acceptsFormatMiddleware from './middlewares/accepts_format_middleware.js'
 
 // dotEnv Config
 dotenv.config()
@@ -30,6 +31,9 @@ app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 app.use(express.text())
 app.use(cookieParser())
+
+// Request Accepts HTML
+app.use(acceptsFormatMiddleware)
 
 // express-sanitizer middleware
 app.use(expressSanitizer())
