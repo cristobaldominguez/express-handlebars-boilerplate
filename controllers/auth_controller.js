@@ -17,6 +17,14 @@ function get_signup(_, res) {
 async function post_signup(req, res) {
   const token = await auth_services.post_signup(req, res)
 
+  if (typeof token.toJson === 'function') {
+    if (req.expects_html) {
+      return res.status(req.error.status).render('auth/signup', { error: req.error.toJson(), user: { email: req.body.email } })
+    } else {
+      throw token
+    }
+  }
+
   if (req.expects_html) {
     res.cookie(cookie_name, token, { maxAge: 7 * 24 * 60 * 60 * 1000, httpOnly: true })
     return res.redirect(redirect.after.signup)
@@ -33,6 +41,14 @@ async function get_login(_, res) {
 // POST /auth/login
 async function post_login(req, res) {
   const token = await auth_services.post_login(req, res)
+
+  if (typeof token.toJson === 'function') {
+    if (req.expects_html) {
+      return res.status(req.error.status).render('auth/login', { error: req.error.toJson(), user: { email: req.body.email } })
+    } else {
+      throw token
+    }
+  }
 
   if (req.expects_html) {
     res.cookie(cookie_name, token, { maxAge: 7 * 24 * 60 * 60 * 1000, httpOnly: true })

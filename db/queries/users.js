@@ -1,5 +1,8 @@
 import pool from '../pool.js'
 
+// ErrorHandling
+import AuthError from '../../errors/auth_error.js'
+
 // User Creation
 async function create_user({ email, password }) {
   const query = {
@@ -12,7 +15,8 @@ async function create_user({ email, password }) {
     return result.rows[0]
 
   } catch (e) {
-    console.error(e)
+    // Error for already existing user
+    if (e.code === '23505') { throw new AuthError({ message: 'Email already exists' }) }
     return e
   }
 }

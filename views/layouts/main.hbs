@@ -6,6 +6,10 @@
         <title>{{ title }}</title>
     </head>
     <body>
+        {{#if error }}
+        <div class="error">{{error.message}}</div>
+        {{/if }}
+
         {{{ body }}}
     </body>
 </html>

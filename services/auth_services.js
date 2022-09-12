@@ -19,8 +19,8 @@ async function post_signup(req) {
   const email = req.sanitize(req.body.email)
   const { password, password_confirm } = req.body
 
-  if (!(email && password)) throw new AuthError({ message: 'Data not formatted properly' })
-  if ( password !== password_confirm ) throw new AuthError({ message: 'Password and password confirm fields doesn\'t match' })
+  if (!(email && password)) { return req.error = new AuthError({ message: 'Data not formatted properly' }) }
+  if (password !== password_confirm) { return req.error = new AuthError({ message: 'Password and password confirm fields doesn\'t match' }) }
 
   // creating a new user
   const user = { email, password }
@@ -36,8 +36,12 @@ async function post_signup(req) {
     const token = jwt.sign(await saved_user, accessTokenSecret)
     return token
 
-  } catch (error) {
-    throw new Error()
+  } catch (err) {
+    if (err instanceof AuthError) { 
+      return req.error = err
+    }
+
+    return req.error = new Error()
   }
 }
 
@@ -56,11 +60,11 @@ async function post_login(req) {
       return token
 
     } else {
-      throw new AuthError({ message: 'Invalid Password', status: 400 })
+      return req.error = new AuthError({ message: 'Invalid email or password', status: 400 })
     }
 
   } else {
-    throw new AuthError({ message: 'User does not exist', status: 401 })
+    return req.error = new AuthError({ message: 'Email does not exist', status: 401 })
   }
 }
 
