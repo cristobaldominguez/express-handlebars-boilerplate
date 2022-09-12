@@ -14,7 +14,7 @@ import authRoutes from './routes/auth.js'
 import exampleRoutes from './routes/example.js'
 
 // Controllers
-import { authenticate, set_user } from './controllers/auth_controller.js'
+import { authenticate, set_user } from './services/auth_services.js'
 
 // Middlewares
 import errorMiddleware from './middlewares/error_middleware.js'

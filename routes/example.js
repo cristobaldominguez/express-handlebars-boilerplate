@@ -1,7 +1,7 @@
 import express from 'express'
 
 // Import Controllers
-import { authenticate, set_user } from '../controllers/auth_controller.js'
+import { authenticate, set_user } from '../services/auth_services.js'
 import example_controller from '../controllers/example_controller.js'
 
 // Router Creation
