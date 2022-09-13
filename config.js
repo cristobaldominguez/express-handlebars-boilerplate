@@ -5,6 +5,8 @@ import { fileURLToPath } from 'url'
 // dotEnv Config
 dotenv.config()
 
+const email_regex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g
+
 const redirect = {
   after: {
     login: '/',
@@ -28,4 +30,4 @@ const db_default_options = {
 
 const db = { ...db_default_options, ...env_db_config }
 
-export { port, root, db, redirect }
+export { port, root, db, redirect, email_regex }

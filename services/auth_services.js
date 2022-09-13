@@ -8,7 +8,7 @@ import { create_user, get_user_by } from '../db/queries/users.js'
 import AuthError from '../errors/auth_error.js'
 
 // Import Config
-import { redirect } from '../config.js'
+import { redirect, email_regex } from '../config.js'
 
 // DotEnv
 const accessTokenSecret = process.env.SECRET_KEY
@@ -19,8 +19,8 @@ async function post_signup(req) {
   const email = req.sanitize(req.body.email)
   const { password, password_confirm } = req.body
 
-  if (!(email && password)) { return req.error = new AuthError({ message: 'Data not formatted properly' }) }
-  if (password !== password_confirm) { return req.error = new AuthError({ message: 'Password and password confirm fields doesn\'t match' }) }
+  if (!(email && password)) return req.error = new AuthError({ message: 'Data not formatted properly' })
+  if (password !== password_confirm) return req.error = new AuthError({ message: 'Password and password confirm fields doesn\'t match' })
 
   // creating a new user
   const user = { email, password }
@@ -49,8 +49,10 @@ async function post_signup(req) {
 async function post_login(req) {
   const email = req.sanitize(req.body.email)
   const { password } = req.body
-  const user = await get_user_by({ email })
 
+  if (!email.match(email_regex)) { return req.error = new AuthError({ message: 'Email field have not a valid value' }) }
+
+  const user = await get_user_by({ email })
   if (user) {
     // check user password with hashed password stored in the database
     const validPassword = await bcrypt.compare(password, user.password)
