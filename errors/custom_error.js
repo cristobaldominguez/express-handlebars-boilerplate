@@ -4,6 +4,7 @@ class CustomError extends Error {
 
     this.name = ''
     this.status = 0
+    this.is_an_error = true
   }
 
   toJson() {
