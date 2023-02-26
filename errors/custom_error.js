@@ -9,9 +9,11 @@ class CustomError extends Error {
 
   toJson() {
     return {
-      name: this.name,
-      status: this.status,
-      message: this.message
+      error: {
+        name: this.name,
+        status: this.status,
+        message: this.message
+      }
     }
   }
 }

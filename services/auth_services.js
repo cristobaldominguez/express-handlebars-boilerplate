@@ -14,6 +14,9 @@ import { redirect, email_regex } from '../config.js'
 const accessTokenSecret = process.env.SECRET_KEY
 const cookie_name = process.env.COOKIE_NAME
 
+if (!accessTokenSecret) console.error('Error: No SECRET_KEY inside .env file')
+if (!cookie_name) console.error('Error: No COOKIE_NAME inside .env file')
+
 // POST /auth/signup
 async function post_signup(req) {
   const email = req.sanitize(req.body.email)

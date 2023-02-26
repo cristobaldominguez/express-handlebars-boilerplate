@@ -11,10 +11,10 @@ class ValidationError extends CustomError {
 
   toJson() {
     const obj = super.toJson()
-    return {
-      ...obj,
-      field: this.field
-    }
+    obj['error']['field'] = this.field
+
+    console.error(obj)
+    return obj
   }
 }
 
