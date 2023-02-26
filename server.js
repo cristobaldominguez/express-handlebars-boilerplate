@@ -19,6 +19,8 @@ import { authenticate, set_user } from './services/auth_services.js'
 // Middlewares
 import errorMiddleware from './middlewares/error_middleware.js'
 import acceptsFormatMiddleware from './middlewares/accepts_format_middleware.js'
+// Helpers
+import { non_existent_route } from './helpers/non_existent_route.js'
 
 // dotEnv Config
 dotenv.config()
@@ -52,9 +54,7 @@ app.use('/auth', authRoutes)
 app.use('/examples', authenticate, set_user, exampleRoutes)
 
 // Redirect to 404 Page
-app.get("*", (_, res) => {
-    res.redirect('/404')
-})
+app.get('*', non_existent_route)
 
 app.use(errorMiddleware)
 
