@@ -20,13 +20,13 @@ async function post_signup(req, res) {
   if (req.expects_html) {
     if (token.is_an_error) return res.status(req.error.status).render('auth/signup', { error: req.error.toJson(), user: { email: req.body.email } })
 
-    res.cookie(cookie_name, token, { maxAge: 7 * 24 * 60 * 60 * 1000, httpOnly: true })
+    res.cookie(cookie_name, token.accessToken, { maxAge: 7 * 24 * 60 * 60 * 1000, httpOnly: true })
     return res.redirect(redirect.after.signup)
   }
 
   if (token.is_an_error) throw token
 
-  res.status(200).json({ token })
+  res.status(200).json(token)
 }
 
 // GET /auth/login
@@ -41,13 +41,13 @@ async function post_login(req, res) {
   if (req.expects_html) {
     if (token.is_an_error) return res.status(req.error.status).render('auth/login', { error: req.error.toJson(), user: { email: req.body.email } })
 
-    res.cookie(cookie_name, token, { maxAge: 7 * 24 * 60 * 60 * 1000, httpOnly: true })
+    res.cookie(cookie_name, token.accessToken, { maxAge: 7 * 24 * 60 * 60 * 1000, httpOnly: true })
     return res.redirect(redirect.after.login)
   }
 
   if (token.is_an_error) throw token
 
-  res.status(200).json({ token })
+  res.status(200).json(token)
 }
 
 // DELETE /auth/logout

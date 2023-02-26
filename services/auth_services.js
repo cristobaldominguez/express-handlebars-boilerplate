@@ -65,7 +65,7 @@ async function post_login(req) {
   if (user) {
     // check user password with hashed password stored in the database
     const validPassword = await bcrypt.compare(password, user.password)
-
+    
     if (validPassword) {
       return generate_token({ user })
 
@@ -117,15 +117,7 @@ function generate_token({ user }) {
   return {
     user: {
       id: user.id,
-      first_name: user.first_name,
-      last_name: user.last_name,
-      full_name: `${user.first_name} ${user.last_name}`,
-      email: user.email,
-      dark_mode: user.dark_mode,
-      photo: {
-        filename: user.filename || null,
-        extension: user.extension || null
-      }
+      email: user.email
     },
     accessToken: token
   }
