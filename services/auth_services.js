@@ -19,8 +19,14 @@ if (!cookie_name) console.error('Error: No COOKIE_NAME inside .env file')
 
 // POST /auth/signup
 async function post_signup(req) {
-  const email = req.sanitize(req.body.email)
+  if (!req.body.email) throw new ValidationError({ message: 'Email must to be present.', field: 'email' })
+  if (!req.body.password) throw new ValidationError({ message: 'Password must to be present.', field: 'password' })
+  if (!req.body.password_confirm) throw new ValidationError({ message: 'Password Confirm must to be present.', field: 'password_confirm' })
+
+  const email = req.sanitize(req.body.email).toLowerCase()
   const { password, password_confirm } = req.body
+
+  if (!email.match(email_regex)) { throw new AuthError({ message: 'Email field have not a valid value.' }) }
 
   if (!(email && password)) return req.error = new AuthError({ message: 'Data not formatted properly' })
   if (password !== password_confirm) return req.error = new AuthError({ message: 'Password and password confirm fields doesn\'t match' })
@@ -50,10 +56,13 @@ async function post_signup(req) {
 
 // POST /auth/login
 async function post_login(req) {
-  const email = req.sanitize(req.body.email)
+  if (!req.body.email) throw new ValidationError({ message: 'Email must to be present.' })
+  if (!req.body.password) throw new ValidationError({ message: 'Password must to be present.' })
+
+  const email = req.sanitize(req.body.email).toLowerCase()
   const { password } = req.body
 
-  if (!email.match(email_regex)) { return req.error = new AuthError({ message: 'Email field have not a valid value' }) }
+  if (!email.match(email_regex)) { throw new AuthError({ message: 'Email field have not a valid value.' }) }
 
   const user = await get_user_by({ email })
   if (user) {
