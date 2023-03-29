@@ -6,6 +6,7 @@ import { create_user, get_user_by } from '../db/queries/users.js'
 
 // ErrorHandling
 import AuthError from '../errors/auth_error.js'
+import CustomError from '../errors/custom_error.js'
 
 // Import Config
 import { redirect, email_regex } from '../config.js'
@@ -28,8 +29,8 @@ async function post_signup(req) {
 
   if (!email.match(email_regex)) { throw new AuthError({ message: 'Email field have not a valid value.' }) }
 
-  if (!(email && password)) return req.error = new AuthError({ message: 'Data not formatted properly' })
-  if (password !== password_confirm) return req.error = new AuthError({ message: 'Password and password confirm fields doesn\'t match' })
+  if (!(email && password)) return new AuthError({ message: 'Data not formatted properly' })
+  if (password !== password_confirm) return new AuthError({ message: 'Password and password confirm fields doesn\'t match' })
 
   // creating a new user
   const user = { email, password }
@@ -47,7 +48,7 @@ async function post_signup(req) {
   } catch (err) {
     if (err.is_an_error) return req.error = err
 
-    return req.error = new Error()
+    return new CustomError()
   }
 }
 
@@ -70,11 +71,11 @@ async function post_login(req) {
       return generate_token({ user })
 
     } else {
-      return req.error = new AuthError({ message: 'Invalid email or password', status: 400 })
+      return new AuthError({ message: 'Invalid email or password', status: 400 })
     }
 
   } else {
-    return req.error = new AuthError({ message: 'Email does not exist', status: 401 })
+    return new AuthError({ message: 'Invalid email or password', status: 401 })
   }
 }
 
