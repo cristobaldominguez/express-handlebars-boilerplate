@@ -20,6 +20,7 @@ import { authenticate, set_user } from './services/auth_services.js'
 import errorMiddleware from './middlewares/error_middleware.js'
 import acceptsFormatMiddleware from './middlewares/accepts_format_middleware.js'
 import setContentType from './middlewares/set_content_type.js'
+import checkValidJSON from './middlewares/check_valid_JSON_middleware.js'
 
 // Helpers
 import { non_existent_route } from './helpers/non_existent_route.js'
@@ -35,6 +36,9 @@ app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 app.use(express.text())
 app.use(cookieParser())
+
+// Check JSON Formatting
+app.use(checkValidJSON)
 
 // Request Accepts HTML
 app.use(acceptsFormatMiddleware)
