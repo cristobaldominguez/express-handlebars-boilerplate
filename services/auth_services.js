@@ -20,17 +20,17 @@ if (!cookie_name) console.error('Error: No COOKIE_NAME inside .env file')
 
 // POST /auth/signup
 async function post_signup(req) {
-  if (!req.body.email) throw new ValidationError({ message: 'Email must to be present.', field: 'email' })
-  if (!req.body.password) throw new ValidationError({ message: 'Password must to be present.', field: 'password' })
-  if (!req.body.password_confirm) throw new ValidationError({ message: 'Password Confirm must to be present.', field: 'password_confirm' })
+  if (!req.body.email) throw new ValidationError({ message: i18next.t('errors.no_presence', { field: i18next.t('fields.email') }), field: 'fields.email' })
+  if (!req.body.password) throw new ValidationError({ message: i18next.t('errors.no_presence', { field: i18next.t('fields.password') }), field: 'fields.password' })
+  if (!req.body.password_confirm) throw new ValidationError({ message: i18next.t('errors.no_presence', { field: i18next.t('fields.password_confirm') }), field: 'fields.password_confirm' })
 
   const email = req.sanitize(req.body.email).toLowerCase()
   const { password, password_confirm } = req.body
 
-  if (!email.match(email_regex)) { throw new AuthError({ message: 'Email field have not a valid value.' }) }
+  if (!email.match(email_regex)) { throw new AuthError({ message: i18next.t('errors.not_valid', { field: i18next.t('fields.email') }) }) }
 
-  if (!(email && password)) return new AuthError({ message: 'Data not formatted properly' })
-  if (password !== password_confirm) return new AuthError({ message: 'Password and password confirm fields doesn\'t match' })
+  if (!(email && password)) return new AuthError({ message: i18next.t('errors.data_format') })
+  if (password !== password_confirm) return new AuthError({ message: i18next.t('errors.no_presence', { first: i18next.t('fields.password'), second: i18next.t('fields.password_confirm') }) })
 
   // creating a new user
   const user = { email, password }
@@ -54,13 +54,13 @@ async function post_signup(req) {
 
 // POST /auth/login
 async function post_login(req) {
-  if (!req.body.email) throw new ValidationError({ message: 'Email must to be present.' })
-  if (!req.body.password) throw new ValidationError({ message: 'Password must to be present.' })
+  if (!req.body.email) throw new ValidationError({ message: i18next.t('errors.no_presence', { field: i18next.t('fields.email') }) })
+  if (!req.body.password) throw new ValidationError({ message: i18next.t('errors.no_presence', { field: i18next.t('fields.password') }) })
 
   const email = req.sanitize(req.body.email).toLowerCase()
   const { password } = req.body
 
-  if (!email.match(email_regex)) { throw new AuthError({ message: 'Email field have not a valid value.' }) }
+  if (!email.match(email_regex)) { throw new AuthError({ message: i18next.t('errors.not_valid', { field: i18next.t('fields.email') }) }) }
 
   const user = await get_user_by({ email })
   if (user) {
@@ -71,11 +71,11 @@ async function post_login(req) {
       return generate_token({ user })
 
     } else {
-      return new AuthError({ message: 'Invalid email or password', status: 400 })
+      return new AuthError({ message: i18next.t('errors.invalid_email_password'), status: 400 })
     }
 
   } else {
-    return new AuthError({ message: 'Invalid email or password', status: 401 })
+    return new AuthError({ message: i18next.t('errors.invalid_email_password'), status: 401 })
   }
 }
 

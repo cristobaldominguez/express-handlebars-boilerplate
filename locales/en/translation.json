@@ -1,0 +1,21 @@
+{
+  "fields": {
+    "email": "email",
+    "password": "password",
+    "password_confirm": "password confirm"
+  },
+  "errors": {
+    "no_match": "{{first}} y {{second}} fields doesn't match",
+    "invalid_email_password": "invalid email or password",
+    "no_presence": "{{field}} must to be present.",
+    "not_valid": "{{field}} field has not a valid value.",
+    "data_format": "data not properly formatted",
+    "password_doesnt_match": "password and password confirm fields doesn't match",
+    "unknown": "Unknown Error",
+    "invalid_parameter": "Invalid Parameter.",
+    "email_exists": "Email already exists"
+  },
+  "routes": {
+    "non_existent": "Non Existent Route."
+  }
+}

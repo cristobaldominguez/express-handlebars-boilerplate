@@ -4,6 +4,9 @@ import express from 'express'
 import { engine } from 'express-handlebars'
 import expressSanitizer from 'express-sanitizer'
 import cookieParser from 'cookie-parser'
+import i18next from 'i18next'
+import FilesystemBackend from 'i18next-node-fs-backend'
+import i18nextMiddleware from 'i18next-http-middleware'
 
 // ErrorHandling
 import 'express-async-errors'
@@ -31,6 +34,17 @@ dotenv.config()
 // Server
 const app = express()
 
+// i18n Config
+i18next
+  .use(i18nextMiddleware.LanguageDetector)
+  .use(FilesystemBackend)
+  .init({
+    fallbackLng: 'es',
+    backend: {
+      loadPath: './locales/{{lng}}/translation.json'
+    }
+  })
+
 // body-parser -> From Express 4.16+
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
@@ -48,6 +62,9 @@ app.use(expressSanitizer())
 
 // Sets Content-Type header
 app.use(setContentType)
+
+// i18n 
+app.use(i18nextMiddleware.handle(i18next))
 
 // Public Folder
 app.use(express.static('public'))

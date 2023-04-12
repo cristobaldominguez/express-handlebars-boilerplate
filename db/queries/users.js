@@ -16,7 +16,7 @@ async function create_user({ email, password }) {
 
   } catch (e) {
     // Error for already existing user
-    if (e.code === '23505') { throw new AuthError({ message: 'Email already exists' }) }
+    if (e.code === '23505') { throw new AuthError({ message: i18next.t('errors.email_exists') }) }
     return e
   }
 }

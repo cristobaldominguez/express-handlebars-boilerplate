@@ -5,7 +5,7 @@ function errorMiddleware(err, req, res, next) {
     error: {
       status: 500,
       name: 'UnknownError',
-      message: 'Unknown Error'
+      message: i18next.t('errors.unknown')
     }
   })
 }

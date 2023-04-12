@@ -1,0 +1,21 @@
+{
+  "fields": {
+    "email": "correo",
+    "password": "contraseña",
+    "password_confirm": "confirmación de contraseña"
+  },
+  "errors": {
+    "no_match": "{{first}} y {{second}} no coinciden.",
+    "invalid_email_password": "Email o password inválido.",
+    "no_presence": "Debes llenar el campo {{field}}.",
+    "not_valid": "{{field}} no es válido.",
+    "data_format": "Información no formateada correctamente.",
+    "password_doesnt_match": "Contraseña y la confirmación de contraseña no coinciden.",
+    "unknown": "Error no conocido.",
+    "invalid_parameter": "Parametro inválido.",
+    "email_exists": "Email ya existe"
+  },
+  "routes": {
+    "non_existent": "Ruta no existente."
+  }
+}

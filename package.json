@@ -22,7 +22,7 @@
     "url": "https://github.com/cristobaldominguez/express-basic-boilerplate/issues"
   },
   "engines": {
-    "node": ">=14.0.0"
+    "node": ">=18.0.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.7"
@@ -35,6 +35,9 @@
     "express-async-errors": "^3.1.1",
     "express-handlebars": "^6.0.5",
     "express-sanitizer": "^1.0.6",
+    "i18next": "^22.4.13",
+    "i18next-http-middleware": "^3.3.0",
+    "i18next-node-fs-backend": "^2.1.3",
     "jsonwebtoken": "^8.5.1",
     "pg": "^8.7.3"
   }

@@ -13,7 +13,7 @@ function check_param(req, res, next) {
   }
 
   const error = checking.map(param => convertToNumber(param)).some(num => num === false)
-  if (error) throw new ValidationError({ message: 'Parameter is invalid.' })
+  if (error) throw new ValidationError({ message: i18next.t('errors.invalid_parameter') })
 
   next()
 }
