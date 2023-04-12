@@ -1,6 +1,6 @@
 import AccessError from "../errors/access_error.js"
 
-const non_existent_route = (req, res) => {
+const nonExistentRoute = (req, res) => {
   const { originalUrl: url, method } = req
   console.error({ error: { method, url } })
 
@@ -8,5 +8,5 @@ const non_existent_route = (req, res) => {
 }
 
 export {
-  non_existent_route
+  nonExistentRoute
 }

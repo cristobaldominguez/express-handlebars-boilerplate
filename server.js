@@ -26,7 +26,7 @@ import setContentType from './middlewares/set_content_type.js'
 import checkValidJSON from './middlewares/check_valid_JSON_middleware.js'
 
 // Helpers
-import { non_existent_route } from './helpers/non_existent_route.js'
+import { nonExistentRoute } from './helpers/non_existent_route.js'
 
 // dotEnv Config
 dotenv.config()
@@ -80,7 +80,7 @@ app.use('/auth', authRoutes)
 app.use('/examples', authenticate, set_user, exampleRoutes)
 
 // Redirect to 404 Page
-app.get('*', non_existent_route)
+app.get('*', nonExistentRoute)
 
 app.use(errorMiddleware)
 

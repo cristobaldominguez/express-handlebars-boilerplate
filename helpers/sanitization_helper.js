@@ -1,4 +1,4 @@
-function sanitize_strings({req, params}) {
+function sanitizeStrings({req, params}) {
   const new_obj = {}
   for (const key in params) {
     if (Object.hasOwnProperty.call(params, key)) {
@@ -9,12 +9,12 @@ function sanitize_strings({req, params}) {
   return new_obj
 }
 
-function remove_html_from_string(strInputCode) {
+function removeHtmlFromString(strInputCode) {
   const clean_text = strInputCode.replace(/<\/?[^>]+(>|$)/g, "")
   return clean_text
 }
 
 export {
-  sanitize_strings,
-  remove_html_from_string
+  sanitizeStrings,
+  removeHtmlFromString
 }
