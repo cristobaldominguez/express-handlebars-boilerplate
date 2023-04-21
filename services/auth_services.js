@@ -9,7 +9,7 @@ import AuthError from '../errors/auth_error.js'
 import CustomError from '../errors/custom_error.js'
 
 // Import Config
-import { redirect, email_regex } from '../config.js'
+import { redirect, email_regex, expirationToken } from '../config.js'
 
 // DotEnv
 const accessTokenSecret = process.env.SECRET_KEY
@@ -89,7 +89,7 @@ function authenticate(req, res, next) {
   if (!token) return res.redirect(redirect.for_unauthorized)
 
   // Verify token
-  jwt.verify(token, accessTokenSecret, (err, _) => {
+  jwt.verify(token, accessTokenSecret, (err, decoded) => {
     if (err && cookies) res.clearCookie(cookie_name)
     if (err) return res.redirect(redirect.for_unauthorized)
 
@@ -114,7 +114,7 @@ function get_token_from_jwt(bearer) {
 }
 
 function generate_token({ user }) {
-  const token = jwt.sign(user, accessTokenSecret)
+  const token = jwt.sign(user, accessTokenSecret, { expiresIn: '1d' })
   return {
     user: {
       id: user.id,
