@@ -28,7 +28,8 @@ const db_default_options = {
   // user: 'pg_username',
   // password: 'pg_password',
   // database: 'db_name',
-  port: Number(process.env.DB_PORT) || 5432
+  port: Number(process.env.DB_PORT) || 5432,
+  allowExitOnIdle: true
 }
 
 const db = { ...db_default_options, ...env_db_config }
