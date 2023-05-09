@@ -50,11 +50,12 @@ async function post_signup(req) {
     return generate_token({ user: await saved_user })
 
   } catch (err) {
+    console.error(err)
     if (err.is_an_error) {
       req.error = err
-      return
+      return err
     }
-
+    
     return new CustomError()
   }
 }
