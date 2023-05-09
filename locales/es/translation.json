@@ -13,7 +13,8 @@
     "password_doesnt_match": "Contraseña y la confirmación de contraseña no coinciden.",
     "unknown": "Error no conocido.",
     "invalid_parameter": "Parametro inválido.",
-    "email_exists": "Email ya existe"
+    "email_exists": "Email ya existe",
+    "token_expired": "Token caducado"
   },
   "routes": {
     "non_existent": "Ruta no existente."

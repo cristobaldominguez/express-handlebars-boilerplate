@@ -13,7 +13,8 @@
     "password_doesnt_match": "password and password confirm fields doesn't match",
     "unknown": "Unknown Error",
     "invalid_parameter": "Invalid Parameter.",
-    "email_exists": "Email already exists"
+    "email_exists": "Email already exists",
+    "token_expired": "Token expired"
   },
   "routes": {
     "non_existent": "Non Existent Route."

@@ -18,8 +18,8 @@ const redirect = {
 
 const env_db_config = JSON.parse(process.env.DB_CONFIG)
 
-// with 24 hour of expiration
-const expirationToken = '1d'
+// with 24 hour of token expiration
+const expirationToken = '24h'
 
 const port = process.env.PORT || 3000
 const root = dirname(fileURLToPath(import.meta.url))

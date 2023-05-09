@@ -1,4 +1,5 @@
 import bcrypt from 'bcrypt'
+import i18next from 'i18next'
 import jwt from 'jsonwebtoken'
 
 // Import Queries
@@ -10,6 +11,9 @@ import CustomError from '../errors/custom_error.js'
 
 // Import Config
 import { redirect, email_regex, expirationToken } from '../config.js'
+
+// Helpers
+import tokenIsExpirated from '../helpers/token_is_expirated.js'
 
 // DotEnv
 const accessTokenSecret = process.env.SECRET_KEY
@@ -46,7 +50,10 @@ async function post_signup(req) {
     return generate_token({ user: await saved_user })
 
   } catch (err) {
-    if (err.is_an_error) return req.error = err
+    if (err.is_an_error) {
+      req.error = err
+      return
+    }
 
     return new CustomError()
   }
@@ -89,20 +96,19 @@ function authenticate(req, res, next) {
   if (!token) return res.redirect(redirect.for_unauthorized)
 
   // Verify token
-  jwt.verify(token, accessTokenSecret, (err, decoded) => {
-    if (err && cookies) res.clearCookie(cookie_name)
-    if (err) return res.redirect(redirect.for_unauthorized)
+  const decoded = jwt.decode(token)
+  if (tokenIsExpirated(decoded)) throw new AuthError({ message: i18next.t('errors.token_expired') })
 
-    req.token = token
-    next()
-  })
+  req.token = token
+  next()
 }
 
 function set_user(req, _, next) {
-  if (!req.token) return req.user = null
+  req.user = null
+  if (!req.token) return 
 
   jwt.verify(req.token, accessTokenSecret, (err, user) => {
-    if (err) return req.user = null
+    if (err) return
 
     req.user = user
     next()
@@ -114,7 +120,7 @@ function get_token_from_jwt(bearer) {
 }
 
 function generate_token({ user }) {
-  const token = jwt.sign(user, accessTokenSecret, { expiresIn: '1d' })
+  const token = jwt.sign(user, accessTokenSecret, { expiresIn: expirationToken })
   return {
     user: {
       id: user.id,
